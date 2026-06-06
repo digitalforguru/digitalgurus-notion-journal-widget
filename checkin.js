@@ -7,85 +7,110 @@ const supabase = createClient(
 
 document.addEventListener("DOMContentLoaded", () => {
   const widget = document.getElementById("checkinWidget");
+  const previewWidget = document.getElementById("previewWidget");
+
   const textarea = document.getElementById("checkinText");
   const saveBtn = document.getElementById("saveCheckinBtn");
   const saveMessage = document.getElementById("saveMessage");
   const checkinPrompt = document.getElementById("checkinPrompt");
 
-const prompts = [
-  "what’s on your mind?",
-  "what does your dream life look like?",
-  "what is your ideal day this week?",
-  "what are 3 things you're grateful for?",
-  "what energy are you bringing into today?",
-  "how have you changed in the last 5 years?",
-  "what are you avoiding lately?",
-  "what are you grateful for today?",
-  "what’s been on repeat in your head?",
-  "describe today in one sentence...",
-  "if failing wasn't possible, what would you do?",
-  "if someone else described you what would they say?",
-  "write a letter to your future self...",
-  "what is your biggest fear?",
-  "what is going well in your life and why?",
-  "what are 5 things that make you happy?",
-  "my favorite memory is...",
-  "discussing my opinion on social media...",
-  "when is the last time you cried? why?",
-  "describe your childhood and how it shaped you :)",
-  "what is one thing you wish you could tell yourself 5 years ago?",
-  "my love language and why...",
-  "how did you sleep?",
-  "something i am proud of myself for...",
-  "how do i want to feel at the end of the day today?",
-  "last night i dreamt about...",
-  "what would make today great?",
-  "one thing i learned yesterday...",
-  "one positive thing to focus on today:"
-];
-
-const todaysPrompt =
-  prompts[new Date().getDate() % prompts.length];
-
-checkinPrompt.textContent = todaysPrompt;
-
   const themeToggle = document.getElementById("themeToggle");
   const themeOptions = document.getElementById("themeOptions");
   const themeCircles = document.querySelectorAll(".theme-circle");
+
+  const appearanceToggle = document.getElementById("appearanceToggle");
+  const appearanceOptions = document.getElementById("appearanceOptions");
+  const appearanceChoices = document.querySelectorAll(".appearance-option");
 
   const fontToggle = document.getElementById("fontToggle");
   const fontOptions = document.getElementById("fontOptions");
   const fontChoices = document.querySelectorAll(".font-option");
 
-  const viewEntriesBtn =
-  document.getElementById("viewEntriesBtn");
-  
-  const entriesPopup =
-  document.getElementById("entriesPopup");
-  
-  const entriesContainer =
-  document.getElementById("entriesContainer");
-  
-  const closeEntriesBtn =
-  document.getElementById("closeEntriesBtn");
+  const viewEntriesBtn = document.getElementById("viewEntriesBtn");
+  const entriesPopup = document.getElementById("entriesPopup");
+  const entriesContainer = document.getElementById("entriesContainer");
+  const closeEntriesBtn = document.getElementById("closeEntriesBtn");
 
   const copyBtn = document.getElementById("copyLinkBtn");
   const copyMsg = document.getElementById("copyMessage");
 
   const params = new URLSearchParams(window.location.search);
+  const isEmbed = params.get("embed") === "true";
+
+  if (isEmbed) {
+    document.documentElement.classList.add("embed-mode");
+  }
+
+  const prompts = [
+    "what’s on your mind?",
+    "what does your dream life look like?",
+    "what is your ideal day this week?",
+    "what are 3 things you're grateful for?",
+    "what energy are you bringing into today?",
+    "how have you changed in the last 5 years?",
+    "what are you avoiding lately?",
+    "what are you grateful for today?",
+    "what’s been on repeat in your head?",
+    "describe today in one sentence...",
+    "if failing wasn't possible, what would you do?",
+    "if someone else described you what would they say?",
+    "write a letter to your future self...",
+    "what is your biggest fear?",
+    "what is going well in your life and why?",
+    "what are 5 things that make you happy?",
+    "my favorite memory is...",
+    "discussing my opinion on social media...",
+    "when is the last time you cried? why?",
+    "describe your childhood and how it shaped you :)",
+    "what is one thing you wish you could tell yourself 5 years ago?",
+    "my love language and why...",
+    "how did you sleep?",
+    "something i am proud of myself for...",
+    "how do i want to feel at the end of the day today?",
+    "last night i dreamt about...",
+    "what would make today great?",
+    "one thing i learned yesterday...",
+    "one positive thing to focus on today:"
+  ];
+
+  const todaysPrompt = prompts[new Date().getDate() % prompts.length];
+
+  if (checkinPrompt) {
+    checkinPrompt.textContent = todaysPrompt;
+  }
 
   const state = {
-    theme: params.get("theme") || "pink",
-    font: params.get("font") || "default",
-    embed: params.get("embed") === "true"
+    theme: params.get("theme") || localStorage.getItem("journalTheme") || "pink",
+    font: params.get("font") || localStorage.getItem("journalFont") || "default",
+    appearance:
+      params.get("appearance") ||
+      localStorage.getItem("journalAppearance") ||
+      "system"
   };
 
   const widgetId =
     params.get("id") ||
     (crypto.randomUUID ? crypto.randomUUID() : `checkin-${Date.now()}`);
 
-  if (state.embed) {
-    document.querySelector(".builder-ui")?.style.setProperty("display", "none");
+  const themeColors = {
+    pink: "#f4dfeb",
+    beige: "#faebdd",
+    blue: "#ddebf1",
+    green: "#ddedea",
+    black: "#17171a",
+    white: "#f8f6f3"
+  };
+
+  function saveState() {
+    localStorage.setItem("journalTheme", state.theme);
+    localStorage.setItem("journalFont", state.font);
+    localStorage.setItem("journalAppearance", state.appearance);
+  }
+
+  function updateBothWidgets(callback) {
+    [widget, previewWidget].forEach((item) => {
+      if (item) callback(item);
+    });
   }
 
   function todayKey() {
@@ -93,21 +118,57 @@ checkinPrompt.textContent = todaysPrompt;
   }
 
   function applyTheme(theme) {
-    widget.classList.remove("pink", "green", "beige", "blue", "black", "white");
-    widget.classList.add(theme);
-    state.theme = theme;
+    state.theme = theme || "pink";
+
+    updateBothWidgets((item) => {
+      item.classList.remove("pink", "green", "beige", "blue", "black", "white");
+      item.classList.add(state.theme);
+    });
+
+    if (themeToggle) {
+      themeToggle.style.setProperty(
+        "--theme-color",
+        themeColors[state.theme] || themeColors.pink
+      );
+
+      themeToggle.style.backgroundColor =
+        themeColors[state.theme] || themeColors.pink;
+    }
+
+    saveState();
   }
 
   function applyFont(font) {
-    const fontFamily =
-      font === "serif"
-        ? "Georgia, serif"
-        : font === "mono"
-        ? "ui-monospace, SFMono-Regular, Menlo, monospace"
-        : "'Satoshi', sans-serif";
+    state.font = font || "default";
 
-    widget.style.fontFamily = fontFamily;
-    state.font = font;
+    const fontFamily =
+      state.font === "serif"
+        ? "Georgia, serif"
+        : state.font === "mono"
+        ? "ui-monospace, SFMono-Regular, Menlo, monospace"
+        : "'Satoshi', ui-sans-serif, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif";
+
+    updateBothWidgets((item) => {
+      item.classList.remove("font-default", "font-serif", "font-mono");
+      item.classList.add(`font-${state.font}`);
+      item.style.fontFamily = fontFamily;
+    });
+
+    saveState();
+  }
+
+  function applyAppearance(appearance) {
+    state.appearance = appearance || "system";
+
+    document.body.classList.remove(
+      "appearance-light",
+      "appearance-dark",
+      "appearance-system"
+    );
+
+    document.body.classList.add(`appearance-${state.appearance}`);
+
+    saveState();
   }
 
   async function loadCheckin() {
@@ -122,13 +183,16 @@ checkinPrompt.textContent = todaysPrompt;
       return;
     }
 
-    const saved =
-      data?.data?.[todayKey()]?.text || "";
-    
-    textarea.value = saved;
+    const saved = data?.data?.[todayKey()]?.text || "";
+
+    if (textarea) {
+      textarea.value = saved;
+    }
   }
 
   async function saveCheckin() {
+    if (!textarea) return;
+
     const text = textarea.value.trim();
 
     const { data } = await supabase
@@ -138,6 +202,7 @@ checkinPrompt.textContent = todaysPrompt;
       .maybeSingle();
 
     const currentData = data?.data || {};
+
     currentData[todayKey()] = {
       prompt: todaysPrompt,
       text
@@ -154,113 +219,150 @@ checkinPrompt.textContent = todaysPrompt;
       return;
     }
 
-    saveMessage.classList.remove("hidden");
-    saveMessage.classList.add("show");
+    saveMessage?.classList.remove("hidden");
+    saveMessage?.classList.add("show");
 
     clearTimeout(window.__saveTimer);
     window.__saveTimer = setTimeout(() => {
-      saveMessage.classList.add("hidden");
-      saveMessage.classList.remove("show");
+      saveMessage?.classList.add("hidden");
+      saveMessage?.classList.remove("show");
     }, 1400);
   }
 
   themeToggle?.addEventListener("click", (e) => {
     e.stopPropagation();
-    themeOptions.classList.toggle("hidden");
+    themeOptions?.classList.toggle("hidden");
+    fontOptions?.classList.add("hidden");
+    appearanceOptions?.classList.add("hidden");
   });
 
   themeCircles.forEach((circle) => {
     circle.addEventListener("click", (e) => {
       e.stopPropagation();
       applyTheme(circle.dataset.theme);
-      themeOptions.classList.add("hidden");
+      themeOptions?.classList.add("hidden");
+    });
+  });
+
+  appearanceToggle?.addEventListener("click", (e) => {
+    e.stopPropagation();
+    appearanceOptions?.classList.toggle("hidden");
+    themeOptions?.classList.add("hidden");
+    fontOptions?.classList.add("hidden");
+  });
+
+  appearanceChoices.forEach((option) => {
+    option.addEventListener("click", (e) => {
+      e.stopPropagation();
+      applyAppearance(option.dataset.appearance);
+      appearanceOptions?.classList.add("hidden");
     });
   });
 
   fontToggle?.addEventListener("click", (e) => {
     e.stopPropagation();
-    fontOptions.classList.toggle("hidden");
+    fontOptions?.classList.toggle("hidden");
+    themeOptions?.classList.add("hidden");
+    appearanceOptions?.classList.add("hidden");
   });
 
   fontChoices.forEach((option) => {
     option.addEventListener("click", (e) => {
       e.stopPropagation();
       applyFont(option.dataset.font);
-      fontOptions.classList.add("hidden");
+      fontOptions?.classList.add("hidden");
     });
   });
 
+  viewEntriesBtn?.addEventListener("click", async (e) => {
+    e.stopPropagation();
 
-  viewEntriesBtn?.addEventListener("click", async () => {
-  const { data } = await supabase
-    .from("mood_logs")
-    .select("data")
-    .eq("id", widgetId)
-    .maybeSingle();
+    const { data } = await supabase
+      .from("mood_logs")
+      .select("data")
+      .eq("id", widgetId)
+      .maybeSingle();
 
-  const entries = data?.data || {};
+    const entries = data?.data || {};
 
-  entriesContainer.innerHTML = "";
+    if (!entriesContainer || !entriesPopup) return;
 
-  Object.entries(entries)
-    .reverse()
-    .forEach(([date, entry]) => {
-      if (!entry?.text) return;
+    entriesContainer.innerHTML = "";
 
-      const card = document.createElement("div");
-      card.className = "entry-card";
+    Object.entries(entries)
+      .reverse()
+      .forEach(([date, entry]) => {
+        if (!entry?.text) return;
 
-      card.innerHTML = `
-        <div class="entry-date">${date}</div>
+        const card = document.createElement("div");
+        card.className = "entry-card";
 
-        <div class="entry-prompt">
-          ${entry.prompt || ""}
-        </div>
+        card.innerHTML = "";
 
-        <div class="entry-text">
-          ${entry.text}
-        </div>
-      `;
+        const dateEl = document.createElement("div");
+        dateEl.className = "entry-date";
+        dateEl.textContent = date;
 
-      entriesContainer.appendChild(card);
-    });
+        const promptEl = document.createElement("div");
+        promptEl.className = "entry-prompt";
+        promptEl.textContent = entry.prompt || "";
 
-  entriesPopup.classList.remove("hidden");
-});
+        const textEl = document.createElement("div");
+        textEl.className = "entry-text";
+        textEl.textContent = entry.text;
 
-closeEntriesBtn?.addEventListener("click", () => {
-  entriesPopup.classList.add("hidden");
-});
+        card.appendChild(dateEl);
+        card.appendChild(promptEl);
+        card.appendChild(textEl);
 
+        entriesContainer.appendChild(card);
+      });
+
+    entriesPopup.classList.remove("hidden");
+  });
+
+  entriesPopup?.addEventListener("click", (e) => {
+    e.stopPropagation();
+  });
+
+  closeEntriesBtn?.addEventListener("click", (e) => {
+    e.stopPropagation();
+    entriesPopup?.classList.add("hidden");
+  });
 
   saveBtn?.addEventListener("click", saveCheckin);
 
-  copyBtn?.addEventListener("click", async () => {
+  copyBtn?.addEventListener("click", async (e) => {
+    e.stopPropagation();
+
     const url =
       `${location.origin}${location.pathname}` +
       `?id=${encodeURIComponent(widgetId)}` +
       `&theme=${encodeURIComponent(state.theme)}` +
       `&font=${encodeURIComponent(state.font)}` +
+      `&appearance=${encodeURIComponent(state.appearance)}` +
       `&embed=true`;
 
     await navigator.clipboard.writeText(url);
 
-    copyMsg.classList.remove("hidden");
-    copyMsg.classList.add("show");
+    copyMsg?.classList.remove("hidden");
+    copyMsg?.classList.add("show");
 
     clearTimeout(window.__copyTimer);
     window.__copyTimer = setTimeout(() => {
-      copyMsg.classList.add("hidden");
-      copyMsg.classList.remove("show");
+      copyMsg?.classList.add("hidden");
+      copyMsg?.classList.remove("show");
     }, 1500);
   });
 
   document.addEventListener("click", () => {
     themeOptions?.classList.add("hidden");
     fontOptions?.classList.add("hidden");
+    appearanceOptions?.classList.add("hidden");
   });
 
   applyTheme(state.theme);
   applyFont(state.font);
+  applyAppearance(state.appearance);
   loadCheckin();
 });
