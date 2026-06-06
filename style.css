@@ -638,3 +638,79 @@ html.embed-mode .embed-widget {
   padding: 7px 14px;
   font-size: 11px;
 }
+.journal-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 10px;
+}
+
+.journal-label {
+  font-size: 10px;
+  font-weight: 800;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  opacity: 0.55;
+  text-align: left;
+}
+
+.journal-date {
+  margin-top: 2px;
+  font-size: 10px;
+  opacity: 0.48;
+  text-align: left;
+}
+
+.privacy-btn {
+  width: 28px;
+  height: 28px;
+  padding: 0;
+  display: grid;
+  place-items: center;
+  font-size: 12px;
+  border-radius: 999px;
+  background: rgba(255,255,255,0.55);
+  box-shadow: none;
+}
+
+.paper-wrap {
+  position: relative;
+  flex: 1;
+}
+
+.paper-wrap::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  right: 0;
+
+  width: 28px;
+  height: 28px;
+
+  background:
+    linear-gradient(
+      135deg,
+      rgba(255,255,255,0.15) 0%,
+      rgba(255,255,255,0.15) 49%,
+      rgba(0,0,0,0.08) 50%,
+      rgba(0,0,0,0.08) 100%
+    );
+
+  border-bottom-left-radius: 8px;
+  pointer-events: none;
+}
+
+.page-number {
+  font-size: 10px;
+  opacity: 0.45;
+  text-align: left;
+  padding-left: 4px;
+}
+
+.checkin-textarea.is-private {
+  color: transparent;
+  text-shadow:
+    0 0 0 currentColor,
+    0 0 8px currentColor;
+  filter: blur(5px);
+}
