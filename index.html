@@ -3,92 +3,169 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>DigitalGuru's Daily Journal Widget</title>
+  <title>DigitalGuru's Journal Widget</title>
   <link rel="stylesheet" href="style.css" />
 </head>
 
 <body>
+  <main class="builder-page">
+    <section class="builder-ui">
 
-<div class="builder-ui">
-  <div class="widget-header">
-    DigitalGuru's Notion Journal Widget
+      <header class="builder-nav">
+        <a href="https://digitalforguru.github.io/digitalguru-notion-widget-claim-hub/" class="back-link">← back to studio</a>
+        <span class="status-pill">journal</span>
+      </header>
+
+      <section class="hero-card">
+        <p class="eyebrow">digitalguru widget setup</p>
+        <h1>Journal Widget</h1>
+        <p class="hero-subtitle">
+          write a tiny daily check-in inside Notion with saved entries, soft themes, fonts, and background modes.
+        </p>
+      </section>
+
+      <section class="guide-grid">
+        <div class="info-card">
+          <p class="section-label">quick start</p>
+          <h2>How to use it?</h2>
+          <ol>
+            <li>Choose your theme, background, and font.</li>
+            <li>Copy your embed link.</li>
+            <li>Paste it into Notion using <strong>/embed</strong>.</li>
+          </ol>
+        </div>
+
+        <div class="info-card">
+          <p class="section-label">dashboard tip</p>
+          <h2>Best placement</h2>
+          <p>This widget looks cutest near a morning dashboard, wellness page, habit tracker, or weekly reset section.</p>
+        </div>
+      </section>
+
+      <section class="preview-card">
+        <div class="section-heading">
+          <p class="section-label">live preview</p>
+          <h2>See your journal before copying</h2>
+        </div>
+
+        <div class="preview-frame">
+          <div id="previewWidget" class="widget pink">
+            <p class="checkin-prompt">what do you need today?</p>
+            <div class="checkin-textarea preview-textarea">a soft reset, water, and one tiny win ✧</div>
+            <button class="save-btn">save ✧</button>
+          </div>
+        </div>
+      </section>
+
+      <section class="customize-card">
+        <div class="section-heading">
+          <p class="section-label">customize</p>
+          <h2>Make it match your dashboard</h2>
+        </div>
+
+        <div class="control-panel">
+          <div class="top-left-controls">
+            <div id="themeToggle" class="btn theme-toggle-btn" title="select theme"></div>
+            <div id="appearanceToggle" class="btn appearance-toggle-btn" title="background">bg</div>
+            <div id="fontToggle" class="btn font-toggle-btn" title="font">Aa</div>
+          </div>
+
+          <div id="themeOptions" class="theme-options hidden">
+            <div class="theme-circle pink" data-theme="pink"></div>
+            <div class="theme-circle beige" data-theme="beige"></div>
+            <div class="theme-circle blue" data-theme="blue"></div>
+            <div class="theme-circle green" data-theme="green"></div>
+            <div class="theme-circle black" data-theme="black"></div>
+            <div class="theme-circle white" data-theme="white"></div>
+          </div>
+
+          <div id="appearanceOptions" class="theme-options hidden appearance-options">
+            <div class="appearance-option" data-appearance="light">light</div>
+            <div class="appearance-option" data-appearance="dark">dark</div>
+            <div class="appearance-option" data-appearance="system">system</div>
+          </div>
+
+          <div id="fontOptions" class="theme-options hidden">
+            <div class="font-option" data-font="default">default</div>
+            <div class="font-option" data-font="serif">serif</div>
+            <div class="font-option" data-font="mono">mono</div>
+          </div>
+        </div>
+      </section>
+
+      <section class="setup-card">
+        <div class="section-heading">
+          <p class="section-label">embed</p>
+          <h2>Copy your Notion link</h2>
+        </div>
+
+        <button id="copyLinkBtn" class="copy-btn">
+          copy my embed Notion link .ᐟ.ᐟ
+        </button>
+
+        <p id="copyMessage" class="copy-message hidden">
+          copied! paste into Notion .ᐟ.ᐟ
+        </p>
+      </section>
+
+      <section class="faq-card">
+        <p class="section-label">help</p>
+        <h2>FAQ</h2>
+
+        <details>
+          <summary>How do I add this to Notion?</summary>
+          <p>Copy your embed link, go to Notion, type /embed, paste the link, and confirm!</p>
+        </details>
+
+        <details>
+          <summary>Does it save my entries?</summary>
+          <p>Yes! Your journal check-ins save so you can come back and view your entries later.</p>
+        </details>
+
+        <details>
+          <summary>Can I change the style later?</summary>
+          <p>Yes! Come back to this builder page, update your settings, and copy a fresh embed link.</p>
+        </details>
+      </section>
+
+      <section class="updates-card">
+        <p class="section-label">recent updates</p>
+        <h2>Journal Widget v1.0</h2>
+        <ul>
+          <li>Added daily check-in writing.</li>
+          <li>Added saved journal snapshots.</li>
+          <li>Added matching Notion-style themes, fonts, and background modes.</li>
+        </ul>
+      </section>
+
+      <footer class="footer-links">
+        <a href="https://digitalforguru.github.io/digitalguru-notion-widget-claim-hub/" class="footer-link">Back to Widget Studio</a>
+        <span class="divider">•</span>
+        <a href="https://stan.store/digitalforguru" target="_blank" class="footer-link">shop digitalguru</a>
+        <span class="divider">•</span>
+        <a href="https://tiktok.com/@digitaluru" target="_blank" class="footer-link">TikTok</a>
+      </footer>
+
+    </section>
+  </main>
+
+  <div id="checkinWidget" class="widget pink embed-widget">
+    <p id="checkinPrompt" class="checkin-prompt"></p>
+
+    <textarea id="checkinText" class="checkin-textarea" placeholder="type your little check-in here..."></textarea>
+
+    <button id="saveCheckinBtn" class="save-btn">save ✧</button>
+    <button id="viewEntriesBtn" class="save-btn">view entries ✧</button>
+
+    <div id="entriesPopup" class="entries-popup hidden">
+      <div class="entries-header">journal snapshots ✧</div>
+      <div id="entriesContainer" class="entries-container"></div>
+      <button id="closeEntriesBtn" class="save-btn">close</button>
+    </div>
+
+    <p id="saveMessage" class="save-message hidden">saved ✧</p>
   </div>
 
-  <div id="themeOptions" class="theme-options hidden">
-    <div class="theme-circle pink" data-theme="pink"></div>
-    <div class="theme-circle green" data-theme="green"></div>
-    <div class="theme-circle beige" data-theme="beige"></div>
-    <div class="theme-circle blue" data-theme="blue"></div>
-    <div class="theme-circle black" data-theme="black"></div>
-    <div class="theme-circle white" data-theme="white"></div>
-  </div>
-
-  <div id="fontOptions" class="theme-options hidden">
-    <div class="font-option" data-font="default">default</div>
-    <div class="font-option" data-font="serif">serif</div>
-    <div class="font-option" data-font="mono">mono</div>
-  </div>
-
-  <div id="usageTip" class="usage-tip">
-    Welcome to your Notion widget by DigitalGuru!<br>
-    write a tiny daily check-in<br>
-    - customize theme + font<br>
-    - copy your embed link<br>
-    - paste into Notion ✧
-  </div>
-
-  <div class="top-left-controls">
-    <div id="themeToggle" class="btn theme-toggle-btn"></div>
-    <div id="fontToggle" class="btn">Aa</div>
-  </div>
-
-  <div class="setup-area">
-    <button id="copyLinkBtn" class="copy-btn">
-      copy my embed Notion link .ᐟ.ᐟ
-    </button>
-
-    <p id="copyMessage" class="copy-message hidden">
-      copied! paste into notion .ᐟ.ᐟ
-    </p>
-  </div>
-
-  <div class="footer-links">
-    <a href="https://stan.store/digitalforguru" target="_blank" class="footer-link">
-      shop digitalguru
-    </a>
-    <span class="divider">•</span>
-    <a href="https://tiktok.com/@digitaluru" target="_blank" class="footer-link">
-      socials
-    </a>
-  </div>
-</div>
-
-<div id="checkinWidget" class="widget pink">
-  <div class="widget-header-title">today’s page ✧</div>
-
-  <p id="checkinPrompt" class="checkin-prompt"></p>
-
-  <textarea id="checkinText" class="checkin-textarea" placeholder="type your little check-in here..."></textarea>
-
-  <button id="saveCheckinBtn" class="save-btn">save ✧</button>
-  <button id="viewEntriesBtn" class="save-btn">
-  view entries ✧
-</button>
-
-  <div id="entriesPopup" class="entries-popup hidden">
-  <div class="entries-header">journal snapshots ✧</div>
-
-  <div id="entriesContainer" class="entries-container"></div>
-
-  <button id="closeEntriesBtn" class="save-btn">
-    close
-  </button>
-</div>
-
-  <p id="saveMessage" class="save-message hidden">saved ✧</p>
-</div>
-
-<script type="module" src="checkin.js"></script>
-
+  <script type="module" src="checkin.js"></script>
 </body>
 </html>
