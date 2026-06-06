@@ -100,8 +100,11 @@ if (journalDate) {
   }).toLowerCase();
 }
 
+const startOfYear = new Date(today.getFullYear(), 0, 1);
+const dayOfYear = Math.floor((today - startOfYear) / 86400000) + 1;
+
 if (pageNumber) {
-  pageNumber.textContent = `page ${today.getFullYear().toString().slice(-2)}${today.getMonth() + 1}${today.getDate()}`;
+  pageNumber.textContent = `page ${String(dayOfYear).padStart(3, "0")}`;
 }
   
   const widgetId =
