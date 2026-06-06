@@ -30,7 +30,9 @@ document.addEventListener("DOMContentLoaded", () => {
   const entriesPopup = document.getElementById("entriesPopup");
   const entriesContainer = document.getElementById("entriesContainer");
   const closeEntriesBtn = document.getElementById("closeEntriesBtn");
-
+  const journalDate = document.getElementById("journalDate");
+const privacyToggle = document.getElementById("privacyToggle");
+const pageNumber = document.getElementById("pageNumber");
   const copyBtn = document.getElementById("copyLinkBtn");
   const copyMsg = document.getElementById("copyMessage");
 
@@ -88,6 +90,20 @@ document.addEventListener("DOMContentLoaded", () => {
       "system"
   };
 
+  const today = new Date();
+
+if (journalDate) {
+  journalDate.textContent = today.toLocaleDateString("en-US", {
+    month: "long",
+    day: "numeric",
+    year: "numeric"
+  }).toLowerCase();
+}
+
+if (pageNumber) {
+  pageNumber.textContent = `page ${today.getFullYear().toString().slice(-2)}${today.getMonth() + 1}${today.getDate()}`;
+}
+  
   const widgetId =
     params.get("id") ||
     (crypto.randomUUID ? crypto.randomUUID() : `checkin-${Date.now()}`);
@@ -354,6 +370,16 @@ document.addEventListener("DOMContentLoaded", () => {
       copyMsg?.classList.remove("show");
     }, 1500);
   });
+
+  privacyToggle?.addEventListener("click", (e) => {
+  e.stopPropagation();
+
+  textarea.classList.toggle("is-private");
+
+  privacyToggle.textContent = textarea.classList.contains("is-private")
+    ? "✦"
+    : "👁";
+});
 
   document.addEventListener("click", () => {
     themeOptions?.classList.add("hidden");
