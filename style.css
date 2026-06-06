@@ -183,10 +183,10 @@ body::before {
   position: relative;
   overflow: hidden;
   width: 400px;
-  min-height: 300px;
+  height: 260px;
   margin: 0;
   padding: 16px;
-  border-radius: 18px;
+  border-radius: 20px;
   display: flex;
   flex-direction: column;
   align-items: stretch;
@@ -206,38 +206,48 @@ body::before {
 
 .checkin-prompt {
   margin: 0;
-  font-size: 13px;
-  opacity: 0.75;
+  font-size: 12px;
+  line-height: 1.3;
+  opacity: 0.65;
+  text-align: center;
 }
 
 .checkin-textarea,
 .preview-textarea {
   width: 100%;
-  min-height: 120px;
+  flex: 1;
   resize: none;
-  padding: 14px;
   border: none;
   outline: none;
   border-radius: 16px;
-  background: rgba(255,255,255,0.65);
+  padding: 14px;
+  background:
+    linear-gradient(
+      transparent 0,
+      transparent 23px,
+      rgba(0,0,0,0.08) 24px
+    );
+  background-size: 100% 24px;
+  background-color: rgba(255,255,255,0.58);
   color: inherit;
   font-family: inherit;
   font-size: 13px;
-  line-height: 1.4;
-  box-shadow: inset 0 0 0 1px rgba(255,255,255,0.45);
+  line-height: 24px;
+  text-align: left;
 }
 
 .preview-textarea {
-  text-align: left;
+  min-height: 120px;
+  white-space: pre-line;
 }
 
 .checkin-textarea::placeholder {
   color: inherit;
-  opacity: 0.45;
+  opacity: 0.38;
 }
 
 .checkin-textarea:focus {
-  background: rgba(255,255,255,0.85);
+  background-color: rgba(255,255,255,0.78);
 }
 
 /* CONTROLS */
