@@ -393,7 +393,7 @@ if (pageNumber) {
 
   privacyToggle.textContent = textarea.classList.contains("is-private")
     ? "✦"
-    : "👁";
+    : "⁠♡";
 });
 
   document.addEventListener("click", () => {
