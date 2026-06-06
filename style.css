@@ -225,7 +225,7 @@ body::before {
     linear-gradient(
       transparent 0,
       transparent 23px,
-      rgba(0,0,0,0.08) 24px
+      rgba(0,0,0,0.13) 24px
     );
   background-size: 100% 24px;
   background-color: rgba(255,255,255,0.58);
@@ -684,17 +684,20 @@ html.embed-mode .embed-widget {
   top: 0;
   right: 0;
 
-  width: 28px;
-  height: 28px;
+  width: 26px;
+  height: 26px;
 
   background:
     linear-gradient(
-      135deg,
-      rgba(255,255,255,0.15) 0%,
-      rgba(255,255,255,0.15) 49%,
-      rgba(0,0,0,0.08) 50%,
-      rgba(0,0,0,0.08) 100%
+      45deg,
+      rgba(0,0,0,0.10) 0 50%,
+      rgba(255,255,255,0.72) 50% 100%
     );
+
+  border-bottom-left-radius: 8px;
+  box-shadow: -2px 2px 4px rgba(0,0,0,0.08);
+  pointer-events: none;
+}
 
   border-bottom-left-radius: 8px;
   pointer-events: none;
