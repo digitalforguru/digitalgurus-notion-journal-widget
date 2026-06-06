@@ -585,11 +585,16 @@ html.embed-mode,
 html.embed-mode body {
   width: var(--embed-width) !important;
   height: var(--embed-height) !important;
+  min-width: var(--embed-width) !important;
+  min-height: var(--embed-height) !important;
+  max-width: var(--embed-width) !important;
+  max-height: var(--embed-height) !important;
   overflow: hidden !important;
   margin: 0 !important;
   padding: 0 !important;
+  background: var(--page-bg) !important;
+  background-color: var(--page-bg) !important;
 }
-
 html.embed-mode body::before,
 html.embed-mode .builder-page {
   display: none !important;
