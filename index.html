@@ -50,12 +50,30 @@
 
         <div class="preview-frame">
           <div id="previewWidget" class="widget pink">
-            <p class="checkin-prompt">what do you need today?</p>
-            <div class="checkin-textarea preview-textarea">a soft reset, water, and one tiny win ✧</div>
-            <button class="save-btn">save ✧</button>
-          </div>
-        </div>
-      </section>
+  <div class="journal-top">
+    <div>
+      <div class="journal-label">today's page</div>
+      <div class="journal-date">june 6, 2026</div>
+    </div>
+
+    <button class="privacy-btn" title="hide entry">👁</button>
+  </div>
+
+  <p class="checkin-prompt">what do you need today?</p>
+
+  <div class="paper-wrap">
+    <div class="checkin-textarea preview-textarea">a soft reset, water, and one tiny win ✧</div>
+  </div>
+
+  <div class="page-number">page 157</div>
+
+  <div class="diary-footer-line"></div>
+
+  <div class="journal-actions">
+    <button class="save-btn">save page ✧</button>
+    <button class="save-btn">past pages ✧</button>
+  </div>
+</div>
 
       <section class="customize-card">
         <div class="section-heading">
@@ -168,14 +186,14 @@
 <div id="pageNumber" class="page-number">page 1</div>
 
 <div class="journal-actions">
-  <button id="saveCheckinBtn" class="save-btn">save page ✧</button>
-  <button id="viewEntriesBtn" class="save-btn">past pages ✧</button>
+  <button id="saveCheckinBtn" class="save-btn">save page</button>
+  <button id="viewEntriesBtn" class="save-btn">past pages</button>
 </div>
 
     <div id="entriesPopup" class="entries-popup hidden">
-      <div class="entries-header">journal snapshots ✧</div>
+      <div class="entries-header">past pages</div>
       <div id="entriesContainer" class="entries-container"></div>
-      <button id="closeEntriesBtn" class="save-btn">close</button>
+      <button id="closeEntriesBtn" class="save-btn">x</button>
     </div>
 
     <p id="saveMessage" class="save-message hidden">saved ✧</p>
