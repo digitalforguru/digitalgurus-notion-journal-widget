@@ -17,7 +17,7 @@
   --panel-text: #444;
   --panel-border: rgba(0, 0, 0, 0.08);
   --embed-width: 400px;
-  --embed-height: 300px;
+  --embed-height: 260px;
 }
 
 html,
@@ -592,10 +592,23 @@ html.embed-mode body {
   overflow: hidden !important;
   margin: 0 !important;
   padding: 0 !important;
+  border-radius: 20px !important;
+}
+
+html.embed-mode {
+  background: transparent !important;
+  background-color: transparent !important;
+}
+
+html.embed-mode body {
   background: var(--page-bg) !important;
   background-color: var(--page-bg) !important;
 }
-html.embed-mode body::before,
+
+html.embed-mode body::before {
+  display: none !important;
+}
+
 html.embed-mode .builder-page {
   display: none !important;
 }
@@ -604,22 +617,13 @@ html.embed-mode .embed-widget {
   display: flex !important;
   width: var(--embed-width) !important;
   height: var(--embed-height) !important;
-  border-radius: 18px !important;
+  min-width: var(--embed-width) !important;
+  min-height: var(--embed-height) !important;
+  max-width: var(--embed-width) !important;
+  max-height: var(--embed-height) !important;
+  border-radius: 20px !important;
+  overflow: hidden !important;
   margin: 0 !important;
-}
-
-@media (max-width: 700px) {
-  .guide-grid {
-    grid-template-columns: 1fr;
-  }
-
-  .builder-page {
-    padding: 16px 12px 36px;
-  }
-
-  .widget {
-    width: min(400px, 100%);
-  }
 }
 
 .journal-actions {
