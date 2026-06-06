@@ -150,13 +150,26 @@
   </main>
 
   <div id="checkinWidget" class="widget pink embed-widget">
-    <p id="checkinPrompt" class="checkin-prompt"></p>
+    <div class="journal-top">
+  <div>
+    <div class="journal-label">today's page</div>
+    <div id="journalDate" class="journal-date"></div>
+  </div>
 
-    <textarea id="checkinText" class="checkin-textarea" placeholder="type your little check-in here..."></textarea>
+  <button id="privacyToggle" class="privacy-btn" title="hide entry">👁</button>
+</div>
 
-    <div class="journal-actions">
-  <button id="saveCheckinBtn" class="save-btn">save ✧</button>
-  <button id="viewEntriesBtn" class="save-btn">entries ✧</button>
+<p id="checkinPrompt" class="checkin-prompt"></p>
+
+<div class="paper-wrap">
+  <textarea id="checkinText" class="checkin-textarea" placeholder="type your little check-in here..."></textarea>
+</div>
+
+<div id="pageNumber" class="page-number">page 1</div>
+
+<div class="journal-actions">
+  <button id="saveCheckinBtn" class="save-btn">save page ✧</button>
+  <button id="viewEntriesBtn" class="save-btn">past pages ✧</button>
 </div>
 
     <div id="entriesPopup" class="entries-popup hidden">
