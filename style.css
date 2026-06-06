@@ -717,3 +717,18 @@ html.embed-mode .embed-widget {
     0 0 8px currentColor;
   filter: blur(5px);
 }
+
+.page-number {
+  margin: -4px 0 0;
+  padding-left: 4px;
+
+  font-size: 10px;
+  line-height: 1;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: lowercase;
+
+  opacity: 0.42;
+  text-align: left;
+  color: currentColor;
+}
