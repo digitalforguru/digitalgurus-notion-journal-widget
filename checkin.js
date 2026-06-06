@@ -308,10 +308,13 @@ if (pageNumber) {
 
     entriesContainer.innerHTML = "";
 
+    let hasEntries = false;
+
     Object.entries(entries)
       .reverse()
       .forEach(([date, entry]) => {
         if (!entry?.text) return;
+        hasEntries = true;
 
         const card = document.createElement("div");
         card.className = "entry-card";
@@ -337,6 +340,15 @@ if (pageNumber) {
         entriesContainer.appendChild(card);
       });
 
+   if (!hasEntries) {
+  const empty = document.createElement("div");
+  empty.className = "entry-card empty-entry";
+  empty.innerHTML = `
+    <div class="entry-prompt">no past pages yet ✧</div>
+    <div class="entry-text">write your first little page and it’ll show up here.</div>
+  `;
+  entriesContainer.appendChild(empty);
+} 
     entriesPopup.classList.remove("hidden");
   });
 
